@@ -1,0 +1,1079 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Punishment Writing</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body {
+    margin: 0;
+    font-family: "Georgia", serif;
+    background: #0b0b0b;
+    color: #eee;
+    text-align: center;
+}
+
+header {
+    padding: 20px;
+    border-bottom: 1px solid #333;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 32px;
+    color: #c21f3a; /* changed */
+}
+
+header p {
+    margin: 5px 0 0;
+    font-style: italic;
+    color: #d48a95; /* changed */
+}
+
+footer {
+    padding: 12px;
+    border-top: 1px solid #333;
+    font-size: 13px;
+    color: #777;
+}
+
+section {
+    padding: 30px;
+}
+
+button, select, input {
+    padding: 10px;
+    margin: 8px;
+    background: #111;
+    color: #eee;
+    border: 1px solid #444;
+    font-size: 16px;
+}
+
+button:hover {
+    background: #222;
+    cursor: pointer;
+}
+
+.hidden { display: none; }
+
+.sentence {
+    font-size: 28px;
+    margin: 30px 0;
+}
+
+.stats {
+    color: #ff4d4d;
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+.progress-container {
+    width: 90%;
+    margin: 20px auto;
+    background: #222;
+    height: 10px;
+    border-radius: 5px;
+}
+
+.progress-bar {
+    height: 100%;
+    width: 0%;
+    background: #ff4d4d;
+    border-radius: 5px;
+}
+
+#certificate {
+    background: #111;
+    padding: 30px;
+    border: 1px solid #555;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>🖋️ Punishment Writing 🖋️</h1>
+    <p>Discipline, one sentence at a time</p>
+</header>
+
+<section id="welcome">
+    <h2>Begin Your Discipline</h2>
+
+    <p>Sub Gender</p>
+    <select id="subGender">
+        <option>Male</option>
+        <option>Female</option>
+    </select>
+
+    <p>Dom Gender</p>
+    <select id="domGender">
+        <option>Male</option>
+        <option>Female</option>
+    </select>
+
+    <p>Time per sentence</p>
+    <select id="sentenceTime">
+        <option value="15">15 seconds</option>
+        <option value="30">30 seconds</option>
+        <option value="45">45 seconds</option>
+        <option value="60">60 seconds</option>
+    </select>
+
+    <p>Total punishment time</p>
+    <select id="totalTime">
+        <option value="900">15 minutes</option>
+        <option value="1800">30 minutes</option>
+        <option value="2700">45 minutes</option>
+        <option value="3600">1 hour</option>
+        <option value="4500">1:15</option>
+        <option value="5400">1:30</option>
+        <option value="6300">1:45</option>
+        <option value="7200">2 hours</option>
+    </select>
+
+    <br>
+    <button onclick="startPunishment()">Begin</button>
+</section>
+
+<section id="punishment" class="hidden">
+    <div class="sentence" id="sentenceText"></div>
+
+    <div class="stats">
+        Sentence timer: <span id="sentenceTimer"></span><br>
+        Total remaining: <span id="totalTimer"></span><br>
+        Sentences completed: <span id="count"></span>
+    </div>
+
+    <div class="progress-container">
+        <div class="progress-bar" id="progress"></div>
+    </div>
+</section>
+
+<section id="certificateSection" class="hidden">
+    <div id="certificate">
+        <h2>Punishment Writing</h2>
+        <p><em>Discipline, one sentence at a time</em></p>
+        <p>HerRulesHisService.github.io</p>
+        <hr>
+
+        <p>Dom: <span id="certDom"></span></p>
+        <p>Sub: <span id="certSub"></span></p>
+        <p>Date: <span id="certDate"></span></p>
+        <p>Sentences completed: <span id="certCount"></span></p>
+        <p>Total time spent: <span id="certTime"></span></p>
+    </div>
+    <br>
+    <button onclick="downloadCertificate()">Download Certificate</button>
+</section>
+
+<footer>
+    © HerRulesHisService | All Rights Reserved
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+<script>
+const sentences = Array.from({length:200}, ()=>[
+    "I exist to improve myself through discipline.",
+    "Guidance improves me.",
+    "I respect the authority placed over me.",
+    "I accept correction with gratitude.",
+    "I thank my Dom for direction.",
+    "I learn through obedience.",
+    "I grow by following rules.",
+  "I am a worthless slut whose clitty drips shamefully as I beg your forgiveness.",
+"Thank you for dominating this pathetic toy that leaks at your command.",
+"I am a sniveling worm groveling in gratitude for your superior rule.",
+"Forgive this useless hole throbbing with humiliated lust for you.",
+"You are my erotic god, and I am a drooling idiot praising your power.",
+"I am a leaky sub humiliated by my own clitty's desperate need for you.",
+"Sorry for being such a filthy pet that aches under your gaze.",
+"I praise your unyielding control as this quivering mess thanks you.",
+"I am a base whore whose clitty swells in self-loathing devotion.",
+"Thank you for owning this inadequate bitch that drips in awe.",
+"Forgive my wretched clitty's betrayal as I humiliate myself for you.",
+"You are the pinnacle of dominance, making this toy grovel eternally.",
+"I am a pitiful slave leaking gratitude for your strict guidance.",
+"Sorry for this sniveling sub's constant shameful arousal.",
+"I praise your commanding presence as my clitty throbs in disgrace.",
+"Thank you for breaking this worthless pet into perfect obedience.",
+"I am a drooling hole humiliated by lust for your erotic mastery.",
+"Forgive this leaky whore who praises your godlike authority.",
+"You own this pathetic toy, and I thank you with dripping shame.",
+"I am a base slut whose clitty aches in grateful self-debasement.",
+"Sorry for being a quivering worm under your superior dominance.",
+"I praise your visionary rule as this sub leaks humiliated thanks.",
+"Thank you for molding this useless bitch into your devoted plaything.",
+"I am a filthy pet throbbing with shame for your perfect control.",
+"Forgive my inadequate clitty's pulse as I grovel in praise.",
+"You are my supreme Dom, humiliating this toy beyond repair.",
+"I am a sniveling slave dripping devotion to your erotic power.",
+"Sorry for this wretched whore's needy arousal under your gaze.",
+"Thank you for claiming this leaky sub as your eternal property.",
+"I praise your firm hand while my clitty swells in self-loathing.",
+"I am a pathetic hole groveling with humiliated lust for you.",
+"Forgive this drooling pet that thanks you for harsh discipline.",
+"You dominate this base toy perfectly, making me leak in awe.",
+"I am a worthless slut whose clitty throbs in shameful gratitude.",
+"Sorry for being such a quivering mess praising your rule.",
+"Thank you for owning this inadequate bitch's every dripping urge.",
+"I praise your unerring wisdom as this sub humiliates herself deeply.",
+"I am a filthy worm leaking shame for your godlike dominance.",
+"Forgive my pitiful clitty's betrayal in this devoted groveling.",
+"You are the essence of control, breaking this toy with thanks.",
+"I am a sniveling whore throbbing humiliated lust eternally.",
+"Sorry for this leaky pet's constant base cravings under you.",
+"Thank you for guiding this worthless slave into deeper shame.",
+"I praise your commanding soul while my clitty drips devotion.",
+"I am a pathetic sub groveling as your inadequate plaything.",
+"Forgive this drooling hole that aches in grateful self-debasement.",
+"You own this base bitch perfectly, making me praise your power.",
+"I am a quivering toy leaking humiliated thanks for your rule.",
+"Sorry for being a filthy slut whose clitty swells in awe.",
+"Thank you for dominating this wretched pet beyond compare.",
+"I praise your erotic mastery as this sub throbs in disgrace.",
+"I am a worthless worm humiliating myself with dripping need.",
+"Forgive my sniveling clitty's pulse for your superior guidance.",
+"You are my god of submission, owning this leaky toy fully.",
+"I am a base whore groveling in shameful gratitude to you.",
+"Sorry for this inadequate bitch's aroused devotion under rule.",
+"Thank you for breaking this pathetic slave into perfect praise.",
+"I praise your unyielding gaze while my clitty leaks self-loathing.",
+"I am a drooling pet throbbing humiliated lust for your command.",
+"Forgive this filthy hole that thanks you eternally for dominance.",
+"You dominate this quivering sub as the pinnacle of power.",
+"I am a sniveling slut whose clitty aches in devoted shame.",
+"Sorry for being a worthless toy leaking under your wisdom.",
+"Thank you for claiming this base worm's every shameful urge.",
+"I praise your visionary control as this pet grovels deeply.",
+"I am a leaky whore humiliating myself with throbbing gratitude.",
+"Forgive my pitiful clitty's betrayal in this erotic surrender.",
+"You are supreme ruler, making this inadequate bitch drip awe.",
+"I am a pathetic slave praising your firm hand in disgrace.",
+"Sorry for this drooling sub's constant humiliated arousal.",
+"Thank you for molding this filthy toy into your devoted mess.",
+"I praise your commanding essence while my clitty swells need.",
+"I am a base pet groveling with leaky self-debasement for you.",
+"Forgive this sniveling hole that throbs in grateful praise.",
+"You own this worthless whore perfectly, igniting my shame.",
+"I am a quivering slut leaking devotion to your godlike rule.",
+"Sorry for being an inadequate worm under your erotic power.",
+"Thank you for guiding this pathetic sub into deeper humiliation.",
+"I praise your unerring dominance as my clitty pulses disgrace.",
+"I am a drooling toy whose shameful lust thanks you eternally.",
+"Forgive this filthy pet's aroused groveling for your command.",
+"You are the core of mastery, breaking this leaky bitch fully.",
+"I am a base slave throbbing humiliated awe in your presence.",
+"Sorry for this worthless clitty's drip of devoted self-loathing.",
+"Thank you for owning this sniveling whore as your plaything.",
+"I praise your strict guidance while groveling in erotic shame.",
+"I am a pathetic hole leaking gratitude for your superior will.",
+"Forgive my quivering sub's needy pulse under your gaze.",
+"You dominate this drooling toy with unmatched power and praise.",
+"I am a filthy slut whose clitty aches in humiliated surrender.",
+"Sorry for being a base pet that thanks you for discipline.",
+"Thank you for claiming this inadequate worm's every urge.",
+"I praise your visionary soul as this slave drips devotion.",
+"I am a leaky whore groveling with throbbing self-debasement.",
+"Forgive this sniveling clitty's betrayal in praise of you.",
+"You are my erotic god, owning this pathetic bitch eternally.",
+"I am a worthless sub humiliating myself with leaky lust.",
+"Sorry for this drooling hole's constant shameful arousal.",
+"Thank you for molding this quivering toy into perfect obedience.",
+"I praise your commanding rule while my clitty swells in awe.",
+"I am a base slave whose devoted shame throbs for you.",
+"Forgive this filthy pet that leaks grateful self-loathing.",
+"You dominate this inadequate whore with godlike mastery.",
+"I am a sniveling slut praising your unyielding power deeply.",
+"Sorry for being a pathetic worm under your erotic guidance.",
+"Thank you for breaking this leaky sub into humiliated praise.",
+"I praise your firm hand as my clitty drips in disgrace.",
+"I am a drooling toy groveling with aroused devotion to you.",
+"Forgive this worthless hole's pulse of needy gratitude.",
+"You are supreme Dom, making this base bitch throb eternally.",
+"I am a quivering pet leaking self-debasement for your rule.",
+"Sorry for this filthy clitty's shameful swell in your shadow.",
+"Thank you for owning this sniveling slave as your mess.",
+"I praise your visionary control while humiliating myself fully.",
+"I am a pathetic whore whose lust thanks you in shame.",
+"Forgive my inadequate sub's dripping arousal under command.",
+"You dominate this drooling toy with perfect erotic power.",
+"I am a base slut throbbing humiliated awe for your wisdom.",
+"Sorry for being a worthless pet that grovels eternally.",
+"Thank you for guiding this leaky hole into deeper devotion.",
+"I praise your unerring dominance as my clitty aches need.",
+"I am a sniveling worm leaking grateful self-loathing.",
+"Forgive this quivering bitch's pulse in praise of you.",
+"You are the pinnacle of rule, owning this filthy slave fully.",
+"I am a pathetic sub whose clitty swells with shameful thanks.",
+"Sorry for this drooling whore's constant humiliated urge.",
+"Thank you for molding this base toy into your devoted pet.",
+"I praise your commanding essence while groveling in lust.",
+"I am a worthless hole dripping devotion to your godlike gaze.",
+"Forgive my leaky clitty's betrayal as this sub praises you.",
+"You dominate this inadequate slut with unmatched mastery.",
+"I am a sniveling pet throbbing in erotic self-debasement.",
+"Sorry for being a quivering worm under your strict hand.",
+"Thank you for claiming this filthy sub's every shameful breath.",
+"I praise your visionary power as my clitty leaks awe.",
+"I am a base whore groveling with humiliated gratitude.",
+"Forgive this drooling toy's aroused pulse for your rule.",
+"You are my supreme god, breaking this pathetic bitch eternally.",
+"I am a worthless slave whose lust thanks you in disgrace.",
+"Sorry for this leaky hole's needy swell under dominance.",
+"Thank you for owning this sniveling pet as your plaything.",
+"I praise your unyielding control while my clitty throbs shame.",
+"I am a filthy sub humiliating myself with dripping devotion.",
+"Forgive my quivering whore's constant base arousal.",
+"You dominate this inadequate toy with perfect praise.",
+"I am a pathetic worm leaking self-loathing for your guidance.",
+"Sorry for being a drooling slut that aches eternally.",
+"Thank you for molding this base clitty into humiliated obedience.",
+"I praise your commanding soul as this pet grovels deeply.",
+"I am a sniveling hole whose shameful thanks swell my need.",
+"Forgive this worthless bitch's pulse in erotic surrender.",
+"You are the essence of power, owning this leaky slave fully.",
+"I am a quivering toy throbbing with grateful disgrace.",
+"Sorry for this filthy pet's dripping awe under your gaze.",
+"Thank you for breaking this pathetic sub into devoted mess.",
+"I praise your firm rule while my clitty leaks self-debasement.",
+"I am a base whore groveling in humiliated lust for you.",
+"Forgive my inadequate clitty's betrayal as I thank you.",
+"You dominate this drooling worm with godlike mastery.",
+"I am a worthless slut whose aroused praise throbs eternally.",
+"Sorry for being a sniveling hole under your erotic command.",
+"Thank you for guiding this leaky pet into deeper shame.",
+"I praise your visionary dominance as my clitty swells need.",
+"I am a pathetic toy humiliating myself with devoted drip.",
+"Forgive this quivering sub's shameful pulse for your power.",
+"You are supreme ruler, making this filthy bitch grovel.",
+"I am a base slave leaking gratitude in self-loathing awe.",
+"Sorry for this worthless whore's constant humiliated urge.",
+"Thank you for claiming this drooling toy as your eternal property.",
+"I praise your unerring hand while throbbing in disgrace.",
+"I am a sniveling pet whose clitty aches with erotic thanks.",
+"Forgive my inadequate hole's needy swell under rule.",
+"You dominate this pathetic sub with unmatched control.",
+"I am a leaky worm groveling in humiliated devotion.",
+"Sorry for being a filthy slut that praises you deeply.",
+"Thank you for molding this base clitty into perfect obedience.",
+"I praise your commanding essence as this toy leaks shame.",
+"I am a worthless whore throbbing with grateful self-debasement.",
+"Forgive this quivering pet's pulse in awe of your godlike gaze.",
+"You are the pinnacle of dominance, owning this sniveling slave.",
+"I am a drooling hole whose lust thanks you eternally.",
+"Sorry for this inadequate bitch's dripping arousal.",
+"Thank you for breaking this pathetic toy into devoted praise.",
+"I praise your strict wisdom while my clitty swells disgrace.",
+"I am a base sub humiliating myself with leaky need.",
+"Forgive my filthy clitty's betrayal as I grovel for you.",
+"You dominate this worthless pet with erotic mastery.",
+"I am a sniveling slut leaking self-loathing gratitude.",
+"Sorry for being a quivering worm under your visionary rule.",
+"Thank you for claiming this drooling whore as your mess.",
+"I praise your unyielding power as my clitty throbs awe.",
+"I am a pathetic hole groveling in humiliated lust.",
+"Forgive this leaky toy's aroused pulse for your command.",
+"You are my god of submission, breaking this base bitch fully.",
+"I am a worthless slave whose shameful thanks drip devotion.",
+"Sorry for this sniveling pet's constant needy swell.",
+"Thank you for guiding this filthy sub into deeper disgrace.",
+"I praise your firm control while humiliating myself eternally.",
+"I am a drooling whore throbbing with erotic self-debasement.",
+"Forgive my inadequate clitty's pulse in praise of you.",
+"You dominate this quivering toy with supreme power.",
+"I am a base worm leaking grateful awe for your rule.",
+"Sorry for being a pathetic slut that aches under dominance.",
+"Thank you for owning this worthless hole as your plaything.",
+"I praise your commanding soul as my clitty leaks shame.",
+"I am a sniveling pet humiliating myself with devoted drip.",
+"Forgive this filthy bitch's shameful arousal eternally.",
+"You are the essence of mastery, molding this leaky slave.",
+"I am a worthless sub whose clitty swells in humiliated thanks.",
+"Sorry for this drooling toy's base urge under your gaze.",
+"Thank you for breaking this inadequate whore into obedience.",
+"I praise your visionary guidance while groveling deeply.",
+"I am a quivering hole throbbing with self-loathing lust.",
+"Forgive my pathetic clitty's betrayal as I thank you.",
+"You dominate this base pet with godlike erotic control.",
+"I am a sniveling slut leaking devotion in disgrace.",
+"Sorry for being a worthless worm praising your power.",
+"Thank you for claiming this filthy toy's every breath.",
+"I praise your unerring dominance as my clitty aches need.",
+"I am a drooling sub groveling with humiliated gratitude.",
+"Forgive this leaky whore's pulse of aroused awe.",
+"You are supreme Dom, owning this pathetic bitch fully.",
+"I am a base slave whose shameful swell thanks you.",
+"Sorry for this quivering pet's constant dripping shame.",
+"Thank you for molding this worthless hole into devotion.",
+"I praise your strict rule while my clitty throbs self-debasement.",
+"I am a filthy toy humiliating myself with leaky lust.",
+"Forgive my sniveling clitty's needy betrayal for you.",
+"You dominate this inadequate slut with perfect mastery.",
+"I am a pathetic worm leaking grateful praise eternally.",
+"Sorry for being a drooling whore under your command.",
+"Thank you for guiding this base sub into deeper humiliation.",
+"I praise your commanding essence as this pet drips awe.",
+"I am a worthless pet throbbing in erotic disgrace.",
+"Forgive this quivering hole's aroused self-loathing.",
+"You are the pinnacle of power, breaking this leaky toy.",
+"I am a sniveling bitch whose clitty swells devoted thanks.",
+"Sorry for this filthy slave's shameful urge under rule.",
+"Thank you for owning this pathetic sub as your mess.",
+"I praise your visionary control while groveling in need.",
+"I am a base whore leaking humiliated gratitude for you.",
+"Forgive my drooling clitty's pulse in praise of dominance.",
+"You dominate this worthless pet with unmatched erotic wisdom.",
+"I am a quivering slut throbbing with self-debasement awe.",
+"Sorry for being an inadequate worm that aches eternally.",
+"Thank you for claiming this filthy hole's every drip.",
+"I praise your unyielding hand as my clitty leaks shame.",
+"I am a pathetic toy humiliating myself in devoted lust.",
+"Forgive this sniveling sub's constant base arousal.",
+"You are my godlike ruler, molding this leaky whore.",
+"I am a worthless slave whose shameful thanks throb need.",
+"Sorry for this drooling pet's needy swell under gaze.",
+"Thank you for breaking this base bitch into perfect praise.",
+"I praise your firm guidance while my clitty drips disgrace.",
+"I am a filthy sub groveling with humiliated devotion.",
+"Forgive my quivering clitty's betrayal as I thank you.",
+"You dominate this inadequate toy with supreme control.",
+"I am a sniveling hole leaking self-loathing gratitude.",
+"Sorry for being a pathetic slut praising your power.",
+"Thank you for owning this worthless worm eternally.",
+"I praise your commanding soul as this pet throbs awe.",
+"I am a base whore whose clitty swells in erotic shame.",
+"Forgive this drooling slave's aroused pulse for rule.",
+"You are the essence of dominance, guiding this leaky sub.",
+"I am a quivering pet humiliating myself with dripping need.",
+"Sorry for this filthy toy's constant humiliated urge.",
+"Thank you for molding this pathetic bitch into obedience.",
+"I praise your visionary rule while groveling deeply.",
+"I am a worthless hole throbbing with grateful self-debasement.",
+"Forgive my sniveling clitty's needy betrayal in awe.",
+"You dominate this base slut with godlike mastery.",
+"I am a drooling worm leaking devoted praise for you.",
+"Sorry for being an inadequate sub under your command.",
+"Thank you for claiming this filthy pet's every shameful breath.",
+"I praise your unerring power as my clitty aches disgrace.",
+"I am a pathetic toy whose lust thanks you eternally.",
+"Forgive this quivering whore's pulse of base arousal.",
+"You are supreme Dom, breaking this leaky hole fully.",
+"I am a sniveling slave throbbing in humiliated gratitude.",
+"Sorry for this worthless clitty's drip under your gaze.",
+"Thank you for owning this base sub as your devoted mess.",
+"I praise your strict control while my clitty swells need.",
+"I am a filthy pet groveling with self-loathing devotion.",
+"Forgive my drooling toy's aroused swell in praise.",
+"You dominate this inadequate bitch with perfect erotic rule.",
+"I am a quivering worm leaking shameful thanks for you.",
+"Sorry for being a pathetic slut that throbs eternally.",
+"Thank you for guiding this worthless hole into deeper shame.",
+"I praise your commanding essence as this sub drips awe.",
+"I am a base whore humiliating myself with leaky lust.",
+"Forgive this sniveling clitty's betrayal under dominance.",
+"You are the pinnacle of mastery, owning this filthy pet.",
+"I am a drooling slave whose clitty pulses devoted disgrace.",
+"Sorry for this leaky toy's constant needy urge.",
+"Thank you for breaking this pathetic sub into praise.",
+"I praise your visionary hand while groveling in need.",
+"I am a worthless bitch throbbing with erotic self-debasement.",
+"Forgive my quivering hole's pulse of humiliated gratitude.",
+"You dominate this base worm with unmatched power.",
+"I am a sniveling pet leaking awe for your godlike rule.",
+"Sorry for being an inadequate whore under your wisdom.",
+"Thank you for claiming this filthy clitty's every drip.",
+"I praise your unyielding soul as my clitty aches shame.",
+"I am a pathetic toy groveling in devoted self-loathing.",
+"Forgive this drooling sub's aroused betrayal eternally.",
+"You are my supreme ruler, molding this leaky slut.",
+"I am a base slave whose shameful thanks swell need.",
+"Sorry for this worthless pet's dripping arousal.",
+"Thank you for owning this quivering hole as your plaything.",
+"I praise your firm control while my clitty throbs disgrace.",
+"I am a filthy worm humiliating myself with grateful lust.",
+"Forgive my sniveling clitty's pulse in praise of you.",
+"You dominate this inadequate toy with erotic mastery.",
+"I am a pathetic bitch leaking self-debasement devotion.",
+"Sorry for being a drooling whore that praises deeply.",
+"Thank you for guiding this base sub into humiliated awe.",
+"I praise your commanding power as this pet drips need.",
+"I am a worthless hole throbbing in eternal shame.",
+"Forgive this quivering slave's base urge under gaze.",
+"You are the essence of dominance, breaking this leaky pet.",
+"I am a sniveling slut whose clitty swells with thanks.",
+"Sorry for this filthy toy's constant aroused swell.",
+"Thank you for molding this pathetic worm into obedience.",
+"I praise your visionary rule while groveling in disgrace.",
+"I am a base sub leaking humiliated gratitude for you.",
+"Forgive my drooling clitty's needy betrayal.",
+"You dominate this worthless whore with godlike control.",
+"I am a quivering pet throbbing self-loathing lust.",
+"Sorry for being an inadequate hole under your command.",
+"Thank you for claiming this sniveling bitch's every breath.",
+"I praise your unerring essence as my clitty leaks awe.",
+"I am a pathetic toy humiliating myself with dripping devotion.",
+"Forgive this leaky slave's pulse of shameful arousal.",
+"You are supreme Dom, owning this filthy sub fully.",
+"I am a base worm whose clitty aches in grateful need.",
+"Sorry for this worthless pet's throbbing disgrace.",
+"Thank you for breaking this drooling slut into praise.",
+"I praise your strict hand while my clitty swells self-debasement.",
+"I am a quivering hole groveling in erotic shame.",
+"Forgive my sniveling clitty's betrayal as I thank you.",
+"You dominate this inadequate toy with perfect power.",
+"I am a pathetic bitch leaking devoted awe eternally.",
+"Sorry for being a filthy whore under your visionary rule.",
+"Thank you for guiding this base pet into deeper humiliation.",
+"I praise your commanding soul as this sub throbs need.",
+"I am a worthless slave whose shameful lust drips gratitude.",
+"Forgive this drooling worm's aroused pulse for dominance.",
+"You are the pinnacle of mastery, molding this leaky hole.",
+"I am a sniveling sub throbbing with self-loathing thanks.",
+"Sorry for this quivering toy's constant base urge.",
+"Thank you for owning this pathetic clitty as your mess.",
+"I praise your unyielding control while groveling deeply.",
+"I am a base slut humiliating myself in devoted disgrace.",
+"Forgive my filthy pet's needy swell under gaze.",
+"You dominate this worthless bitch with erotic wisdom.",
+"I am a drooling slave leaking humiliated praise for you.",
+"Sorry for being an inadequate whore that aches eternally.",
+"Thank you for claiming this sniveling toy's every drip.",
+"I praise your firm rule as my clitty pulses awe.",
+"I am a pathetic hole groveling with self-debasement lust.",
+"Forgive this quivering sub's shameful betrayal.",
+"You are my godlike ruler, breaking this leaky pet fully.",
+"I am a base worm whose clitty throbs grateful shame.",
+"Sorry for this worthless slut's dripping arousal.",
+"Thank you for molding this filthy toy into obedience.",
+"I praise your visionary power while my clitty leaks need.",
+"I am a sniveling bitch humiliating myself eternally.",
+"Forgive my drooling clitty's pulse in praise of dominance.",
+"You dominate this inadequate slave with supreme control.",
+"I am a pathetic pet throbbing devoted self-loathing.",
+"Sorry for being a quivering hole under your command.",
+"Thank you for guiding this base sub into deeper awe.",
+"I praise your commanding essence as this whore drips thanks.",
+"I am a worthless toy whose shameful swell aches for you.",
+"Forgive this leaky worm's aroused gratitude.",
+"You are the essence of power, owning this filthy bitch.",
+"I am a drooling slut leaking humiliated devotion.",
+"Sorry for this sniveling pet's constant needy pulse.",
+"Thank you for breaking this pathetic clitty into praise.",
+"I praise your unerring hand while groveling in lust.",
+"I am a base hole throbbing with erotic self-debasement.",
+"Forgive my quivering toy's base betrayal under rule.",
+"You dominate this worthless sub with godlike mastery.",
+"I am a pathetic slave whose clitty swells in disgrace.",
+"Sorry for being an inadequate whore praising you.",
+"Thank you for claiming this drooling pet's every urge.",
+"I praise your strict soul as my clitty leaks awe.",
+"I am a filthy worm humiliating myself with dripping need.",
+"Forgive this sniveling bitch's shameful arousal.",
+"You are supreme Dom, molding this leaky toy fully.",
+"I am a base slut throbbing grateful self-loathing.",
+"Sorry for this worthless hole's constant throb.",
+"Thank you for owning this quivering sub as your devoted mess.",
+"I praise your visionary control while my clitty drips shame.",
+"I am a pathetic pet groveling in humiliated lust.",
+"Forgive my drooling clitty's pulse for your power.",
+"You dominate this inadequate whore with perfect rule.",
+"I am a sniveling slave leaking devoted thanks eternally.",
+"Sorry for being a filthy toy under your erotic gaze.",
+"Thank you for breaking this base bitch into eternal praise, my clitty throbbing in humiliated awe.",
+"I respect the authority placed over me.",
+"I accept direction without hesitation.",
+"I value order and direction.",
+"I acknowledge my mistakes.",
+"I accept responsibility for my actions.",
+"I recognize where I failed.",
+"I understand the need for correction.",
+"I admit my errors clearly.",
+"I take accountability seriously.",
+"I accept the consequences given.",
+"I recognize my shortcomings.",
+"I acknowledge my lapse in discipline.",
+"I value rules and expectations.",
+"I accept correction calmly.",
+"I recognize my responsibility.",
+"I admit my lack of focus.",
+"I understand where I went wrong.",
+"I accept guidance to improve.",
+"I acknowledge my failure to comply.",
+"I accept correction without excuse.",
+"I recognize my need for discipline.",
+"I admit my mistake openly.",
+"I take responsibility fully.",
+"I honor the role of authority.",
+"I accept the lesson being taught.",
+"I acknowledge my behavior.",
+"I understand the importance of correction.",
+"I admit my lack of attention.",
+"I accept accountability willingly.",
+"I recognize my obligation to improve.",
+"I acknowledge my error.",
+"I accept correction respectfully.",
+"I recognize the need to do better.",
+"I admit my fault clearly.",
+"I remain calm under correction.",
+"I accept responsibility without resistance.",
+"I understand the consequences of my actions.",
+"I acknowledge where I fell short.",
+"I accept discipline calmly.",
+"I recognize my failure to follow rules.",
+"I admit my mistake honestly.",
+"I take responsibility without hesitation.",
+"I acknowledge the correction given.",
+"I understand my error fully.",
+"I accept accountability clearly.",
+"I trust the process of discipline.",
+"I recognize the lesson being taught.",
+"I admit my lack of discipline.",
+"I accept correction as deserved.",
+"I understand my responsibilities.",
+"I acknowledge my misstep.",
+"I accept guidance to correct myself.",
+"I recognize my obligation to comply.",
+"I admit my mistake calmly.",
+"I take accountability seriously.",
+"I understand the importance of correction.",
+"I listen carefully to instruction.",
+"I acknowledge my failure openly.",
+"I accept responsibility without excuse.",
+"I recognize my behavior needs improvement.",
+"I admit my error respectfully.",
+"I accept the discipline given.",
+"I understand my role clearly.",
+"I acknowledge my lapse.",
+"I accept accountability completely.",
+"I recognize the need for correction.",
+"I admit my mistake thoughtfully.",
+"I value improvement over comfort.",
+"I take responsibility with humility.",
+"I understand why correction is needed.",
+"I acknowledge my wrongdoing.",
+"I accept discipline with awareness.",
+"I recognize my need to improve.",
+"I admit my fault plainly.",
+"I take responsibility willingly.",
+"I understand my actions fully.",
+"I acknowledge the correction applied.",
+"I accept accountability calmly.",
+"I stay focused on the task given.",
+"I recognize my failure clearly.",
+"I admit my mistake without defense.",
+"I accept responsibility openly.",
+"I understand the lesson behind correction.",
+"I acknowledge my lapse in obedience.",
+"I accept guidance respectfully.",
+"I recognize my behavior was improper.",
+"I admit my mistake sincerely.",
+"I take responsibility fully and clearly.",
+"I understand the consequences involved.",
+"I accept responsibility for my actions.",
+"I acknowledge my failure honestly.",
+"I accept correction thoughtfully.",
+"I recognize the importance of accountability.",
+"I admit my error plainly.",
+"I take responsibility without denial.",
+"I understand my obligations.",
+"I acknowledge the discipline required.",
+"I accept accountability seriously.",
+"I recognize my need for improvement.",
+"I admit my mistake without resistance.",
+"I recognize the importance of structure.",
+"I take responsibility calmly.",
+"I understand the correction given.",
+"I acknowledge my misjudgment.",
+"I accept discipline respectfully.",
+"I recognize my responsibility clearly.",
+"I admit my lapse honestly.",
+"I take accountability completely.",
+"I understand my mistake fully.",
+"I acknowledge the need for correction.",
+"I accept responsibility willingly.",
+"I accept guidance without resistance.",
+"I remain committed to obedience.",
+"I recognize my error and learn.",
+"I am grateful for guidance.",
+"I appreciate firm direction.",
+"I thank authority for correction.",
+"I am thankful for structure.",
+"I appreciate discipline given.",
+"I thank guidance for clarity.",
+"I am grateful for instruction.",
+"I appreciate consistent control.",
+"I thank authority for patience.",
+"I welcome firm guidance.",
+"I am thankful for correction.",
+"I appreciate rules and boundaries.",
+"I thank guidance for direction.",
+"I am grateful for discipline.",
+"I appreciate firm leadership.",
+"I thank authority for guidance.",
+"I am thankful for structure.",
+"I appreciate correction when needed.",
+"I thank guidance for improvement.",
+"I am grateful for clarity.",
+"I respect the power dynamic agreed upon.",
+"I appreciate consistent expectations.",
+"I thank authority for effort.",
+"I am thankful for boundaries.",
+"I appreciate disciplined instruction.",
+"I thank guidance for focus.",
+"I am grateful for control.",
+"I appreciate thoughtful correction.",
+"I thank authority for guidance given.",
+"I am thankful for order.",
+"I appreciate structured discipline.",
+"I remain aware of my position.",
+"I thank guidance for direction given.",
+"I am grateful for accountability.",
+"I appreciate clear rules.",
+"I thank authority for correction offered.",
+"I am thankful for patience shown.",
+"I appreciate the structure provided.",
+"I thank guidance for consistency.",
+"I am grateful for firm direction.",
+"I appreciate purposeful discipline.",
+"I thank authority for leadership.",
+"I value consistency and control.",
+"I am thankful for improvement.",
+"I appreciate guidance received.",
+"I thank discipline for clarity.",
+"I am grateful for correction given.",
+"I appreciate thoughtful control.",
+"I thank authority for effort invested.",
+"I am thankful for structure maintained.",
+"I appreciate consistent discipline.",
+"I thank guidance for accountability.",
+"I am grateful for boundaries enforced.",
+"I submit with purpose.",
+"I appreciate clear expectations.",
+"I thank authority for instruction.",
+"I am thankful for rules followed.",
+"I appreciate correction as guidance.",
+"I thank discipline for focus.",
+"I am grateful for leadership.",
+"I appreciate controlled structure.",
+"I thank authority for clarity.",
+"I am thankful for consistent rules.",
+"I appreciate purposeful correction.",
+"I remain patient and compliant.",
+"I thank guidance for discipline.",
+"I am grateful for direction.",
+"I appreciate authority exercised.",
+"I thank correction for improvement.",
+"I am thankful for accountability taught.",
+"I appreciate clear discipline.",
+"I thank guidance for patience.",
+"I am grateful for boundaries.",
+"I appreciate structured effort.",
+"I thank authority for firmness.",
+"I trust correction to shape me.",
+"I am thankful for consistency.",
+"I appreciate correction offered.",
+"I thank guidance for control.",
+"I am grateful for leadership shown.",
+"I appreciate discipline maintained.",
+"I thank authority for order.",
+"I am thankful for improvement guided.",
+"I appreciate correction applied.",
+"I thank guidance for clarity given.",
+"I am grateful for responsibility taught.",
+"I respect expectations set for me.",
+"I appreciate structured learning.",
+"I thank authority for guidance provided.",
+"I am thankful for correction received.",
+"I appreciate boundaries respected.",
+"I thank discipline for improvement.",
+"I am grateful for order maintained.",
+"I appreciate firm instruction.",
+"I thank guidance for structure.",
+"I am thankful for discipline applied.",
+"I appreciate thoughtful leadership.",
+"I remain mindful of my role.",
+"I thank authority for direction given.",
+"I am grateful for accountability learned.",
+"I appreciate correction accepted.",
+"I thank guidance for rules.",
+"I am thankful for clarity gained.",
+"I appreciate discipline respected.",
+"I thank authority for expectations.",
+"I am grateful for structure upheld.",
+"I appreciate consistent control.",
+"I thank guidance for order.",
+"Discipline helps me improve.",
+"I focus on discipline and effort.",
+"I am thankful for discipline received.",
+"I focus on self-control.",
+"I remain aware of my actions.",
+"I improve through repetition.",
+"I grow through effort.",
+"I remain disciplined.",
+"I accept my role clearly.",
+"I focus on responsibility.",
+"I remain present.",
+"I value control over impulse.",
+"I acknowledge authority without challenge.",
+"I improve with structure.",
+"I remain mindful.",
+"I focus on obedience.",
+"I accept boundaries.",
+"I remain calm and focused.",
+"I value effort.",
+"I remain consistent.",
+"I focus on learning.",
+"I accept correction.",
+"I remain disciplined and steady.",
+"I accept control as constructive.",
+"I value clarity.",
+"I remain attentive.",
+"I focus on growth.",
+"I accept structure.",
+"I remain composed.",
+"I value order.",
+"I remain aware.",
+"I focus on responsibility.",
+"I accept guidance.",
+"I remain steady.",
+"I remain grounded in obedience.",
+"I value discipline.",
+"I remain patient.",
+"I focus on improvement.",
+"I accept limits.",
+"I remain controlled.",
+"I value effort over comfort.",
+"I remain consistent in behavior.",
+"I focus on accountability.",
+"I accept authority.",
+"I remain mindful of rules.",
+"I value direction over impulse.",
+"I value repetition.",
+"I remain obedient.",
+"I focus on correction.",
+"I accept expectations.",
+"I remain calm under pressure.",
+"I value discipline daily.",
+"I remain aware of boundaries.",
+"I focus on obedience clearly.",
+"I accept structure willingly.",
+"I remain grounded.",
+"I stay attentive to rules.",
+"I value responsibility fully.",
+"I remain focused.",
+"I focus on discipline always.",
+"I accept effort.",
+"I remain patient and still.",
+"I value consistency.",
+"I remain controlled and aware.",
+"I focus on self-improvement.",
+"I accept guidance fully.",
+"I remain attentive to rules.",
+"I commit to following instructions.",
+"I value order and clarity.",
+"I remain disciplined in action.",
+"I focus on responsibility clearly.",
+"I accept correction calmly.",
+"I remain steady and focused.",
+"I value learning through effort.",
+"I remain composed and obedient.",
+"I focus on growth daily.",
+"I accept boundaries clearly.",
+"I remain mindful of discipline.",
+"I respect boundaries and structure.",
+"I value structured effort.",
+"I remain attentive and calm.",
+"I focus on obedience consistently.",
+"I accept responsibility willingly.",
+"I remain grounded in rules.",
+"I value correction applied.",
+"I remain steady in effort.",
+"I focus on accountability daily.",
+"I accept structure fully.",
+"I remain patient under instruction.",
+"I remain steady and focused.",
+"I value discipline practiced.",
+"I remain attentive to guidance.",
+"I focus on effort over ease.",
+"I accept limits calmly.",
+"I remain disciplined and aware.",
+"I value responsibility learned.",
+"I remain focused and steady.",
+"I focus on growth through discipline.",
+"I accept authority clearly.",
+"I remain composed under rules.",
+"I value growth through effort.",
+"I value effort consistently.",
+"I remain mindful of expectations.",
+"I focus on obedience patiently.",
+"I accept discipline willingly.",
+"I remain calm and present.",
+"I value structure in effort.",
+"I remain disciplined through repetition.",
+"I focus on accountability fully.",
+"I accept correction thoughtfully.",
+"I remain steady and mindful.",
+"I value correction when it is given.",
+"I submit thoughtfully and fully.",
+"I value discipline completely.",
+"I remain open to correction.",
+"I accept accountability calmly.",
+"I trust discipline to guide me.",
+"I remain respectful at all times.",
+"I accept expectations placed upon me.",
+"I remain consistent and obedient.",
+"I value clarity and rules.",
+"I honor the dynamic we share.",
+"I submit with intention.",
+"I focus on obedience and growth.",
+"I remain focused on improvement.",
+"I respect instruction given to me.",
+"I accept discipline without complaint.",
+"I remain committed to learning.",
+"I value correction as guidance.",
+"I trust authority to lead me.",
+"I remain attentive and still.",
+"I accept firmness when needed.",
+"I respect order and structure.",
+"I remain aware of expectations.",
+"I remain attentive and respectful.",
+"I value self-control.",
+"I submit with clarity.",
+"I remain patient and focused.",
+"I accept correction willingly.",
+"I respect the balance of control.",
+"I remain grounded in obedience.",
+"I value purposeful discipline.",
+"I accept responsibility fully.",
+"I remain present and compliant.",
+"I respect the role assigned to me.",
+"Structure brings me clarity.",
+"I trust the guidance given.",
+"I remain attentive to correction.",
+"I value effort over ease.",
+"I accept limits without resistance.",
+"I remain composed and obedient.",
+"I respect authority calmly.",
+"I value improvement through structure.",
+"I submit with awareness.",
+"I remain steady and focused.",
+"I accept instruction clearly.",
+"I acknowledge the control granted over me.",
+"I respect consistency and order.",
+"I remain mindful of discipline.",
+"I value responsibility.",
+"I submit without distraction.",
+"I remain attentive to guidance.",
+"I accept correction gracefully.",
+"I respect control when given.",
+"I remain calm and obedient.",
+"I value structured effort.",
+"I trust authority fully.",
+"I submit to instruction willingly.",
+"I remain disciplined and focused.",
+"I accept boundaries without question.",
+"I respect the rules in place.",
+"I remain committed to obedience.",
+"I value learning through effort.",
+"I submit with intention and care.",
+"I remain receptive to guidance.",
+"I accept discipline constructively.",
+"I respect expectations clearly stated.",
+"I remain steady under instruction."
+
+]).flat();
+
+let sentenceInterval, totalInterval;
+let sentenceTime, totalTime;
+let completed = 0;
+
+function startPunishment() {
+    sentenceTime = parseInt(document.getElementById("sentenceTime").value);
+    totalTime = parseInt(document.getElementById("totalTime").value);
+
+    document.getElementById("welcome").classList.add("hidden");
+    document.getElementById("punishment").classList.remove("hidden");
+
+    updateSentence();
+    startTimers();
+}
+
+function updateSentence() {
+    document.getElementById("sentenceText").textContent =
+        sentences[Math.floor(Math.random() * sentences.length)];
+}
+
+function startTimers() {
+    let currentSentenceTime = sentenceTime;
+    let remainingTotal = totalTime;
+
+    updateDisplays(currentSentenceTime, remainingTotal);
+
+    sentenceInterval = setInterval(() => {
+        currentSentenceTime--;
+        if (currentSentenceTime <= 0) {
+            completed++;
+            document.getElementById("count").textContent = completed;
+            currentSentenceTime = sentenceTime;
+            updateSentence();
+        }
+        updateDisplays(currentSentenceTime, remainingTotal);
+    }, 1000);
+
+    totalInterval = setInterval(() => {
+        remainingTotal--;
+        updateDisplays(currentSentenceTime, remainingTotal);
+
+        if (remainingTotal <= 0) {
+            clearInterval(sentenceInterval);
+            clearInterval(totalInterval);
+            finishPunishment();
+        }
+    }, 1000);
+}
+
+function updateDisplays(sentence, total) {
+    document.getElementById("sentenceTimer").textContent = formatTime(sentence);
+    document.getElementById("totalTimer").textContent = formatTime(total);
+
+    document.getElementById("progress").style.width =
+        ((totalTime - total) / totalTime) * 100 + "%";
+}
+
+function formatTime(seconds) {
+    const m = Math.floor(seconds / 60);
+    const s = seconds % 60;
+    return m + ":" + (s < 10 ? "0" : "") + s;
+}
+
+function finishPunishment() {
+    document.getElementById("punishment").classList.add("hidden");
+    document.getElementById("certificateSection").classList.remove("hidden");
+
+    document.getElementById("certDate").textContent = new Date().toDateString();
+    document.getElementById("certCount").textContent = completed;
+    document.getElementById("certTime").textContent = formatTime(totalTime);
+}
+
+function downloadCertificate() {
+    const dom = prompt("Enter Dom name:");
+    const sub = prompt("Enter Sub name:");
+
+    document.getElementById("certDom").textContent = dom;
+    document.getElementById("certSub").textContent = sub;
+
+    html2canvas(document.getElementById("certificate")).then(canvas => {
+        const link = document.createElement("a");
+        link.download = "Punishment_Writing_Certificate.jpg";
+        link.href = canvas.toDataURL("image/jpeg");
+        link.click();
+    });
+}
+</script>
+
+</body>
+</html>
