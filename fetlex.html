@@ -2,14 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" 
-
-content="width=device-width, initial-
-
-scale=1.0, user-scalable=yes">
-  <title>FetLex | FetLife Vocabulary 
-
-Quiz</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>FetLex | Kink Vocabulary Quiz</title>
   <style>
     * {
       box-sizing: border-box;
@@ -18,14 +12,8 @@ Quiz</title>
     }
 
     body {
-      background: linear-gradient
-
-(145deg, #1a0b1a 0%, #2a1225 100%);
-      font-family: 'Segoe UI', 
-
-'Poppins', 'Candara', system-ui, -
-
-apple-system, 'Roboto', sans-serif;
+      background: linear-gradient(145deg, #1a0b1a 0%, #2a1225 100%);
+      font-family: 'Segoe UI', 'Poppins', 'Candara', system-ui, -apple-system, 'Roboto', sans-serif;
       min-height: 100vh;
       display: flex;
       justify-content: center;
@@ -33,20 +21,13 @@ apple-system, 'Roboto', sans-serif;
       padding: 1.5rem;
     }
 
-    /* main card */
     .app-container {
       max-width: 750px;
       width: 100%;
-      background: rgba(20, 10, 18, 
-
-0.85);
+      background: rgba(20, 10, 18, 0.85);
       backdrop-filter: blur(10px);
       border-radius: 3rem;
-      box-shadow: 0 25px 45px rgba(0, 
-
-0, 0, 0.5), 0 0 0 2px #d43f6b40, 0 0 0 
-
-5px #2e0e1f;
+      box-shadow: 0 25px 45px rgba(0, 0, 0, 0.5), 0 0 0 2px #d43f6b40, 0 0 0 5px #2e0e1f;
       padding: 1.8rem;
       transition: all 0.2s ease;
     }
@@ -54,9 +35,7 @@ apple-system, 'Roboto', sans-serif;
     h1 {
       font-size: 2.5rem;
       font-weight: 800;
-      background: linear-gradient
-
-(135deg, #f5b0c5, #ff3b6f);
+      background: linear-gradient(135deg, #f5b0c5, #ff3b6f);
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
@@ -68,9 +47,7 @@ apple-system, 'Roboto', sans-serif;
     .sub {
       text-align: center;
       color: #e6bfcf;
-      border-bottom: 1px dashed 
-
-#ff608050;
+      border-bottom: 1px dashed #ff608050;
       padding-bottom: 0.75rem;
       margin-bottom: 1.5rem;
       font-style: italic;
@@ -88,9 +65,7 @@ apple-system, 'Roboto', sans-serif;
       text-align: center;
       font-weight: 500;
       backdrop-filter: blur(4px);
-      box-shadow: 0 5px 12px 
-
-#00000030;
+      box-shadow: 0 5px 12px #00000030;
     }
 
     .btn-group {
@@ -249,9 +224,17 @@ apple-system, 'Roboto', sans-serif;
 
     .loading {
       text-align: center;
-      padding: 2rem;
-      color: #ffcfdf;
-      font-size: 1.2rem;
+      padding: 3rem;
+      color: #ffbfd4;
+      font-size: 1.3rem;
+    }
+
+    .error-msg {
+      background: #5e1a2f;
+      padding: 1rem;
+      border-radius: 1rem;
+      color: #ffbcbc;
+      text-align: center;
     }
 
     footer {
@@ -259,15 +242,6 @@ apple-system, 'Roboto', sans-serif;
       font-size: 0.7rem;
       color: #ad7390;
       margin-top: 2rem;
-    }
-
-    .error-msg {
-      background: #8b1a3a;
-      padding: 1rem;
-      border-radius: 1rem;
-      color: #ffc0d0;
-      text-align: center;
-      margin: 1rem 0;
     }
 
     @media (max-width: 550px) {
@@ -281,31 +255,16 @@ apple-system, 'Roboto', sans-serif;
   </style>
 </head>
 <body>
-<div class="app-container" 
-
-id="appRoot">
-  <div class="loading">🔥 Loading 
-
-FetLex... 🔥</div>
+<div class="app-container" id="appRoot">
+  <div class="loading">🔥 FetLex loading... fetching forbidden vocabulary 🔥</div>
 </div>
+
 <script>
-  // 
+  // --------------------------------------------------------------
+  // FetLex - FetLife Kink Vocabulary Quiz
+  // Loads questions from external fetlexquestions.tsv file
+  // --------------------------------------------------------------
 
---------------------------------------
-
-------------------------
-  // FetLex - FetLife Vocabulary Quiz 
-
-Game
-  // Questions loaded from external 
-
-fetlexquestions.tsv
-  // 
-
---------------------------------------
-
-------------------------
-  
   let fullQuestions = [];
   let isLoading = true;
   let loadError = null;
@@ -320,345 +279,76 @@ fetlexquestions.tsv
   let totalQuestionsCount = 0;
   let certificateType = '';
 
-  const app = document.getElementById
+  const app = document.getElementById('appRoot');
 
-('appRoot');
-
-  // Load TSV file
+  // Fetch and parse TSV from external file
   async function loadQuestions() {
     try {
-      const response = await fetch
-
-('fetlexquestions.tsv');
+      const response = await fetch('fetlexquestions.tsv');
       if (!response.ok) {
-        throw new Error(`Failed to 
-
-load TSV file: ${response.status} 
-
-${response.statusText}`);
+        throw new Error(`Failed to load: ${response.status} ${response.statusText}`);
       }
-      const tsvText = await 
-
-response.text();
+      const tsvText = await response.text();
       parseTSV(tsvText);
       isLoading = false;
       render();
-    } catch (error) {
-      console.error('Error loading 
-
-questions:', error);
-      loadError = error.message;
+    } catch (err) {
+      console.error('Error loading TSV:', err);
+      loadError = err.message;
       isLoading = false;
       render();
     }
   }
 
   function parseTSV(tsvString) {
-    const lines = tsvString.trim
-
-().split(/\r?\n/);
+    const lines = tsvString.trim().split(/\r?\n/);
     const questions = [];
-    
     for (let line of lines) {
-      // Skip empty lines
-      if (line.trim() === '') 
-
-continue;
-      
+      if (line.trim() === '') continue;
       const parts = line.split('\t');
       if (parts.length < 6) {
-        console.warn('Skipping 
-
-malformed line:', line);
+        console.warn('Skipping malformed line:', line);
         continue;
       }
-      
-      const [question, correct, optA, 
-
-optB, optC, category] = parts;
+      const [question, correct, optA, optB, optC, category] = parts;
       questions.push({
         question: question.trim(),
         correctAnswer: correct.trim(),
-        options: [optA.trim(), 
-
-optB.trim(), optC.trim()],
-        category: category.trim
-
-().toLowerCase()
+        options: [optA.trim(), optB.trim(), optC.trim()],
+        category: category.trim().toLowerCase()
       });
     }
-    
     fullQuestions = questions;
-    console.log(`Loaded 
-
-${fullQuestions.length} questions from 
-
-TSV`);
-    
-    if (fullQuestions.length === 0) {
-      loadError = 'No valid questions 
-
-found in TSV file. Please check the 
-
-format.';
-    }
+    console.log(`Loaded ${fullQuestions.length} questions from fetlexquestions.tsv`);
   }
 
   function shuffleArray(arr) {
-    for (let i = arr.length - 1; i > 
-
-0; i--) {
-      const j = Math.floor
-
-(Math.random() * (i + 1));
-      [arr[i], arr[j]] = [arr[j], arr
-
-[i]];
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
     }
     return arr;
   }
 
   function getRandomQuestions(n) {
-    if (fullQuestions.length === 0) 
-
-return [];
-    
-    let shuffledAll = shuffleArray
-
-([...fullQuestions]);
-    let selected = shuffledAll.slice
-
-(0, Math.min(n, shuffledAll.length));
-    
-    // If we need more questions than 
-
-available, duplicate randomly
-    if (n > fullQuestions.length) {
+    if (fullQuestions.length === 0) return [];
+    let shuffledAll = shuffleArray([...fullQuestions]);
+    let selected = shuffledAll.slice(0, Math.min(n, shuffledAll.length));
+    // If we need more questions than available, duplicate randomly
+    if (selected.length < n && fullQuestions.length > 0) {
       let extended = [...selected];
       while (extended.length < n) {
-        const randomQuestion = { 
-
-...fullQuestions[Math.floor
-
-(Math.random() * 
-
-fullQuestions.length)] };
-        extended.push(randomQuestion);
+        let clone = { ...fullQuestions[Math.floor(Math.random() * fullQuestions.length)] };
+        extended.push(clone);
       }
       selected = extended;
     }
-    
     return selected;
-  }
-
-  function startQuiz() {
-    if (fullQuestions.length === 0) {
-      alert('No questions loaded. 
-
-Please check that fetlexquestions.tsv 
-
-exists and has valid data.');
-      return;
-    }
-    
-    const totalNeeded = selectedQty;
-    let fetched = getRandomQuestions
-
-(totalNeeded);
-    
-    quizQuestions = fetched.slice(0, 
-
-totalNeeded);
-    userAnswers = new Array
-
-(quizQuestions.length).fill(-1);
-    currentIndex = 0;
-    finalScore = 0;
-    currentView = 'quiz';
-    render();
-  }
-
-  function computeScoreAndFinish() {
-    let correctCount = 0;
-    for (let i = 0; i < 
-
-quizQuestions.length; i++) {
-      const q = quizQuestions[i];
-      const selectedIdx = userAnswers
-
-[i];
-      if (selectedIdx !== -1 && 
-
-q.options[selectedIdx] === 
-
-q.correctAnswer) {
-        correctCount++;
-      }
-    }
-    finalScore = correctCount;
-    totalQuestionsCount = 
-
-quizQuestions.length;
-    const percent = (finalScore / 
-
-totalQuestionsCount) * 100;
-    const isEligible = percent >= 80;
-
-    if (totalQuestionsCount === 25) {
-      certificateType = isEligible ? 
-
-"FetLing's Devotion" : null;
-    } else if (totalQuestionsCount === 
-
-50) {
-      certificateType = isEligible ? 
-
-"FetLife Archivist" : null;
-    } else if (totalQuestionsCount === 
-
-100) {
-      certificateType = isEligible ? 
-
-"Grand FetMaster" : null;
-    } else {
-      certificateType = isEligible ? 
-
-"FetLex Scholar" : null;
-    }
-    if (!isEligible) certificateType = 
-
-null;
-
-    currentView = 'result';
-    render();
-  }
-
-  function downloadCertificate(score, 
-
-total, certName, percent) {
-    const canvas = 
-
-document.createElement('canvas');
-    const ctx = canvas.getContext
-
-('2d');
-    const width = 650;
-    const height = 500;
-    canvas.width = width;
-    canvas.height = height;
-
-    const grad = 
-
-ctx.createLinearGradient(0, 0, width, 
-
-height);
-    grad.addColorStop(0, '#1f0e19');
-    grad.addColorStop(1, '#391b2c');
-    ctx.fillStyle = grad;
-    ctx.fillRect(0, 0, width, height);
-    
-    ctx.strokeStyle = '#e89fc2';
-    ctx.lineWidth = 8;
-    ctx.strokeRect(20, 20, width - 40, 
-
-height - 40);
-    ctx.strokeStyle = '#ff5f8e';
-    ctx.lineWidth = 2;
-    ctx.strokeRect(28, 28, width - 56, 
-
-height - 56);
-
-    ctx.fillStyle = '#ffdae9';
-    ctx.font = 'bold 34px "Segoe UI", 
-
-"Georgia", serif';
-    ctx.textAlign = 'center';
-    ctx.fillText("🏆 FETLEX CHAMPION 
-
-🏆", width/2, 85);
-    
-    ctx.font = '22px "Segoe UI", 
-
-cursive';
-    ctx.fillStyle = '#f5b0cb';
-    ctx.fillText("Certificate of 
-
-FetLife Vocabulary Mastery", width/2, 
-
-140);
-    
-    ctx.font = '18px monospace';
-    ctx.fillStyle = '#fce1ef';
-    ctx.fillText(`This certifies that 
-
-you have demonstrated`, width/2, 195);
-    ctx.fillText(`exceptional 
-
-knowledge of FetLife terminology.`, 
-
-width/2, 225);
-    
-    ctx.font = 'bold 40px "Courier 
-
-New"';
-    ctx.fillStyle = '#ff9fc2';
-    ctx.fillText(`${score} / ${total}
-
-`, width/2, 285);
-    
-    ctx.font = '22px "Segoe UI"';
-    ctx.fillStyle = '#ffb7d0';
-    ctx.fillText(`${percent.toFixed
-
-(1)}%  —  exceeds the 80% threshold`, 
-
-width/2, 335);
-    
-    ctx.font = 'italic 17px "Segoe 
-
-UI"';
-    ctx.fillStyle = '#e6b2cc';
-    ctx.fillText(`"${certName}"`, 
-
-width/2, 385);
-    
-    ctx.font = '12px monospace';
-    ctx.fillStyle = '#c289a6';
-    ctx.fillText(`issued by FetLex 
-
-Academy · ${new Date
-
-().toLocaleDateString()}`, width/2, 
-
-460);
-    
-    ctx.beginPath();
-    ctx.arc(width-50, height-40, 12, 
-
-0, 2*Math.PI);
-    ctx.fillStyle = '#ff477e';
-    ctx.fill();
-    ctx.fillStyle = 'black';
-    ctx.font = 'bold 14px sans-serif';
-    ctx.fillText("🖤", width-55, 
-
-height-34);
-    
-    const link = 
-
-document.createElement('a');
-    link.download = `FetLex_
-
-${certName.replace(/\s/g,'_')}.png`;
-    link.href = canvas.toDataURL();
-    link.click();
   }
 
   function escapeHtml(str) {
     if (!str) return '';
-    return str.replace(/[&<>]/g, 
-
-function(m) {
+    return str.replace(/[&<>]/g, function(m) {
       if (m === '&') return '&amp;';
       if (m === '<') return '&lt;';
       if (m === '>') return '&gt;';
@@ -666,230 +356,114 @@ function(m) {
     });
   }
 
+  // Welcome page
   function renderWelcome() {
     const kinkyMessages = [
-      "🖤 Kneel before FetLex, little 
-
-one… ready to prove your depraved 
-
-knowledge? 🖤",
-      "🔥 Whips, chains, and semantics 
-
-— only the devious survive this quiz! 
-
-🔥",
-      "💋 Take the collar of curiosity. 
-
-Answer wisely, or be edged by 
-
-ignorance. 💋",
-      "👅 You've played in the dungeon, 
-
-but can you NAME the terms? Let's find 
-
-out, pervert. 👅",
-      "⛓️ FetLife called — they want 
-
-their vocabulary back. Prove you 
-
-deserve it. ⛓️"
+      "🖤 Kneel before the FetLex, little one… ready to prove your depraved knowledge? 🖤",
+      "🔥 Whips, chains, and semantics — only the devious survive this quiz! 🔥",
+      "💋 Take the collar of curiosity. Answer wisely, or be edged by ignorance. 💋",
+      "👅 You've played in the dungeon, but can you NAME the terms? Let's find out. 👅",
+      "🔗 FetLife's lexicon awaits. Will you earn your title? 🔗"
     ];
-    const randomMsg = kinkyMessages
-
-[Math.floor(Math.random() * 
-
-kinkyMessages.length)];
+    const randomMsg = kinkyMessages[Math.floor(Math.random() * kinkyMessages.length)];
 
     app.innerHTML = `
       <div>
         <h1>🔗 FetLex 🔗</h1>
-        <div class="sub">FetLife 
-
-vernacular unleashed</div>
-        <div class="kinky-message">✨ 
-
-${randomMsg} ✨</div>
-        <div style="text-align:center; 
-
-margin:1rem 0 0.5rem;"><strong 
-
-style="color:#f291b2;">choose your 
-
-trial size</strong></div>
+        <div class="sub">FetLife vernacular unleashed</div>
+        <div class="kinky-message">✨ ${randomMsg} ✨</div>
+        <div style="text-align:center; margin:1rem 0 0.5rem;"><strong style="color:#f291b2;">choose your trial size</strong></div>
         <div class="btn-group">
-          <button data-qty="25" 
-
-class="qty-btn ${selectedQty === 25 ? 
-
-'active' : ''}">25 Q</button>
-          <button data-qty="50" 
-
-class="qty-btn ${selectedQty === 50 ? 
-
-'active' : ''}">50 Q</button>
-          <button data-qty="100" 
-
-class="qty-btn ${selectedQty === 100 ? 
-
-'active' : ''}">100 Q</button>
+          <button data-qty="25" class="qty-btn ${selectedQty === 25 ? 'active' : ''}">25 Q</button>
+          <button data-qty="50" class="qty-btn ${selectedQty === 50 ? 'active' : ''}">50 Q</button>
+          <button data-qty="100" class="qty-btn ${selectedQty === 100 ? 'active' : ''}">100 Q</button>
         </div>
         <div class="btn-group">
-          <button id="startQuizBtn" 
-
-class="quiz-btn">🔞 TAKE THE QUIZ 
-
-🔞</button>
+          <button id="startQuizBtn" class="quiz-btn">🔞 TAKE THE QUIZ 🔞</button>
         </div>
-        <footer>words from the 
-
-underground — adult playground 
-
-only</footer>
+        <footer>words from the underground — adult playground only</footer>
       </div>
     `;
-    
-    document.querySelectorAll('.qty-
 
-btn').forEach(btn => {
-      btn.addEventListener('click', 
-
-(e) => {
-        const qty = parseInt
-
-(btn.dataset.qty, 10);
-        selectedQty = qty;
+    document.querySelectorAll('.qty-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        selectedQty = parseInt(btn.dataset.qty, 10);
         renderWelcome();
       });
     });
-    
-    document.getElementById
-
-('startQuizBtn')?.addEventListener
-
-('click', () => {
+    document.getElementById('startQuizBtn')?.addEventListener('click', () => {
+      if (fullQuestions.length === 0) {
+        alert("Questions still loading. Please wait a moment.");
+        return;
+      }
       startQuiz();
     });
   }
 
+  function startQuiz() {
+    const totalNeeded = selectedQty;
+    let fetched = getRandomQuestions(totalNeeded);
+    quizQuestions = fetched.slice(0, totalNeeded);
+    userAnswers = new Array(quizQuestions.length).fill(-1);
+    currentIndex = 0;
+    finalScore = 0;
+    currentView = 'quiz';
+    render();
+  }
+
   function renderQuiz() {
-    if (!quizQuestions.length || 
-
-currentIndex >= quizQuestions.length) 
-
-{
+    if (!quizQuestions.length || currentIndex >= quizQuestions.length) {
       computeScoreAndFinish();
       return;
     }
-    
-    const q = quizQuestions
-
-[currentIndex];
-    const currentAnswer = userAnswers
-
-[currentIndex];
-    let categoryLabel = 
-
-q.category.charAt(0).toUpperCase() + 
-
-q.category.slice(1);
+    const q = quizQuestions[currentIndex];
+    const currentAnswer = userAnswers[currentIndex];
+    const categoryLabel = q.category.charAt(0).toUpperCase() + q.category.slice(1);
     const letters = ['A', 'B', 'C'];
 
     let optionsHtml = '';
     q.options.forEach((opt, idx) => {
-      const isSelected = 
-
-(currentAnswer === idx);
+      const isSelected = (currentAnswer === idx);
       optionsHtml += `
-        <div class="option 
-
-${isSelected ? 'selected' : ''}" 
-
-data-opt-index="${idx}">
-          <span class="option-
-
-letter">${letters[idx]}</span>
-          <span class="option-text">
-
-${escapeHtml(opt)}</span>
+        <div class="option ${isSelected ? 'selected' : ''}" data-opt-index="${idx}">
+          <span class="option-letter">${letters[idx]}</span>
+          <span class="option-text">${escapeHtml(opt)}</span>
         </div>
       `;
     });
 
     app.innerHTML = `
       <div class="quiz-area">
-        <div class="progress">🔥 
-
-${currentIndex+1} / 
-
-${quizQuestions.length} 🔥</div>
+        <div class="progress">🔥 ${currentIndex+1} / ${quizQuestions.length} 🔥</div>
         <div class="question-card">
-          <div class="category-
-
-badge">📌 ${categoryLabel}</div>
-          <div class="question-text">
-
-${escapeHtml(q.question)}</div>
-          <div class="options" 
-
-id="optionsContainer">
+          <div class="category-badge">📌 ${categoryLabel}</div>
+          <div class="question-text">${escapeHtml(q.question)}</div>
+          <div class="options" id="optionsContainer">
             ${optionsHtml}
           </div>
           <div class="nav-buttons">
-            <button id="prevBtn" 
-
-${currentIndex === 0 ? 'disabled 
-
-style="opacity:0.5"' : ''}>⛓️ 
-
-Previous</button>
-            <button id="nextBtn" 
-
-class="quiz-btn">${currentIndex === 
-
-quizQuestions.length-1 ? 'Submit 💀' : 
-
-'Next →'}</button>
+            <button id="prevBtn" ${currentIndex === 0 ? 'disabled style="opacity:0.5"' : ''}>⛓️ Previous</button>
+            <button id="nextBtn" class="quiz-btn">${currentIndex === quizQuestions.length-1 ? 'Submit 💀' : 'Next →'}</button>
           </div>
         </div>
       </div>
     `;
 
-    const optDivs = 
-
-document.querySelectorAll('.option');
-    optDivs.forEach(div => {
-      div.addEventListener('click', 
-
-(e) => {
-        const idx = parseInt
-
-(div.dataset.optIndex, 10);
-        userAnswers[currentIndex] = 
-
-idx;
+    document.querySelectorAll('.option').forEach(div => {
+      div.addEventListener('click', (e) => {
+        const idx = parseInt(div.dataset.optIndex, 10);
+        userAnswers[currentIndex] = idx;
         renderQuiz();
       });
     });
-    
-    document.getElementById
-
-('prevBtn')?.addEventListener('click', 
-
-() => {
+    document.getElementById('prevBtn')?.addEventListener('click', () => {
       if (currentIndex > 0) {
         currentIndex--;
         renderQuiz();
       }
     });
-    
-    document.getElementById
-
-('nextBtn')?.addEventListener('click', 
-
-() => {
-      if (currentIndex + 1 < 
-
-quizQuestions.length) {
+    document.getElementById('nextBtn')?.addEventListener('click', () => {
+      if (currentIndex + 1 < quizQuestions.length) {
         currentIndex++;
         renderQuiz();
       } else {
@@ -898,112 +472,136 @@ quizQuestions.length) {
     });
   }
 
-  function renderResult() {
-    const percent = (finalScore / 
+  function computeScoreAndFinish() {
+    let correctCount = 0;
+    for (let i = 0; i < quizQuestions.length; i++) {
+      const q = quizQuestions[i];
+      const selectedIdx = userAnswers[i];
+      if (selectedIdx !== -1 && q.options[selectedIdx] === q.correctAnswer) {
+        correctCount++;
+      }
+    }
+    finalScore = correctCount;
+    totalQuestionsCount = quizQuestions.length;
+    const percent = (finalScore / totalQuestionsCount) * 100;
+    const isEligible = percent >= 80;
 
-totalQuestionsCount) * 100;
+    if (totalQuestionsCount === 25) {
+      certificateType = isEligible ? "Leather Laurels of Lascivious Lore" : null;
+    } else if (totalQuestionsCount === 50) {
+      certificateType = isEligible ? "Primal Parchment of Penetrating Prowess" : null;
+    } else if (totalQuestionsCount === 100) {
+      certificateType = isEligible ? "Eternal Edge of the Enlightened Kinkster" : null;
+    } else {
+      certificateType = isEligible ? "Dungeon Devotee Diploma" : null;
+    }
+    if (!isEligible) certificateType = null;
+
+    currentView = 'result';
+    render();
+  }
+
+  function downloadCertificate(score, total, certName, percent) {
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    const width = 650;
+    const height = 500;
+    canvas.width = width;
+    canvas.height = height;
+
+    const grad = ctx.createLinearGradient(0, 0, width, height);
+    grad.addColorStop(0, '#1f0e19');
+    grad.addColorStop(1, '#391b2c');
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, width, height);
+    ctx.strokeStyle = '#e89fc2';
+    ctx.lineWidth = 8;
+    ctx.strokeRect(20, 20, width - 40, height - 40);
+    ctx.strokeStyle = '#ff5f8e';
+    ctx.lineWidth = 2;
+    ctx.strokeRect(28, 28, width - 56, height - 56);
+
+    ctx.fillStyle = '#ffdae9';
+    ctx.font = 'bold 34px "Segoe UI", "Georgia", serif';
+    ctx.textAlign = 'center';
+    ctx.fillText("🏆 FETLEX CHAMPION 🏆", width/2, 85);
+    
+    ctx.font = '22px "Segoe UI", cursive';
+    ctx.fillStyle = '#f5b0cb';
+    ctx.fillText("Certificate of Carnal Lexicon", width/2, 140);
+    
+    ctx.font = '18px monospace';
+    ctx.fillStyle = '#fce1ef';
+    ctx.fillText(`This certifies mastery of FetLife vocabulary`, width/2, 195);
+    
+    ctx.font = 'bold 40px "Courier New"';
+    ctx.fillStyle = '#ff9fc2';
+    ctx.fillText(`${score} / ${total}`, width/2, 285);
+    
+    ctx.font = '22px "Segoe UI"';
+    ctx.fillStyle = '#ffb7d0';
+    ctx.fillText(`${percent.toFixed(1)}%  —  beyond 80% depravity`, width/2, 335);
+    
+    ctx.font = 'italic 17px "Segoe UI"';
+    ctx.fillStyle = '#e6b2cc';
+    ctx.fillText(`"${certName}"`, width/2, 385);
+    
+    ctx.font = '12px monospace';
+    ctx.fillStyle = '#c289a6';
+    ctx.fillText(`issued by FetLex Academy · ${new Date().toLocaleDateString()}`, width/2, 460);
+    
+    ctx.beginPath();
+    ctx.arc(width-50, height-40, 12, 0, 2*Math.PI);
+    ctx.fillStyle = '#ff477e';
+    ctx.fill();
+    ctx.fillStyle = 'black';
+    ctx.font = 'bold 14px sans-serif';
+    ctx.fillText("🔗", width-55, height-34);
+    
+    const link = document.createElement('a');
+    link.download = `fetlex_cert_${certName.replace(/\s/g,'_')}.png`;
+    link.href = canvas.toDataURL();
+    link.click();
+  }
+
+  function renderResult() {
+    const percent = (finalScore / totalQuestionsCount) * 100;
     const isPass = percent >= 80;
     let certBlock = '';
-    
     if (isPass && certificateType) {
       certBlock = `
-        <button id="downloadCertBtn" 
-
-class="certificate-btn">🔽 Download 
-
-Your Certificate 🔽</button>
-        <p style="margin-top:0.5rem; 
-
-font-size:0.8rem;">${certificateType}
-
-</p>
+        <button id="downloadCertBtn" class="certificate-btn">🔽 Download Your Certificate 🔽</button>
+        <p style="margin-top:0.5rem; font-size:0.8rem;">${certificateType}</p>
       `;
     } else {
-      certBlock = `<p 
-
-style="color:#ff8fb1;">✖ Below 80% ... 
-
-no certificate for you, try again and 
-
-earn your kinky crown ✖</p>`;
+      certBlock = `<p style="color:#ff8fb1;">✖ Below 80% ... no certificate for you, try again and earn your kinky crown ✖</p>`;
     }
 
     app.innerHTML = `
       <div class="result-area">
         <h2>🪢 Game Over 🪢</h2>
-        <div class="score-badge">
-
-${finalScore}/${totalQuestionsCount}
-
-</div>
-        <p style="font-size:1.6rem; 
-
-margin:0.2rem;">${percent.toFixed
-
-(1)}%</p>
-        <p style="margin:0.5rem 0;">
-
-${isPass ? "🔥 Deviant diction 
-
-mastered! You may claim your 
-
-certificate. 🔥" : "❌ Not enough kink 
-
-vocabulary... practice in the shadows. 
-
-❌"}</p>
+        <div class="score-badge">${finalScore}/${totalQuestionsCount}</div>
+        <p style="font-size:1.6rem; margin:0.2rem;">${percent.toFixed(1)}%</p>
+        <p style="margin:0.5rem 0;">${isPass ? "🔥 Deviant diction mastered! You may claim your certificate. 🔥" : "❌ Not enough kink vocabulary... practice in the shadows. ❌"}</p>
         ${certBlock}
-        <div class="btn-group" 
-
-style="margin-top:1.5rem;">
-          <button id="restartBtn" 
-
-class="quiz-btn" 
-
-style="background:#6c2c48;">🏚️ New 
-
-Quiz</button>
-          <button id="homeBtn" 
-
-style="background:#381e2c;">🏠 Welcome 
-
-Page</button>
+        <div class="btn-group" style="margin-top:1.5rem;">
+          <button id="restartBtn" class="quiz-btn" style="background:#6c2c48;">🏚️ New Quiz</button>
+          <button id="homeBtn" style="background:#381e2c;">🏠 Welcome Page</button>
         </div>
-        <footer>80%+ earns a FetLex 
-
-certificate</footer>
+        <footer>Only 80%+ earns the golden parchment</footer>
       </div>
     `;
-    
     if (isPass && certificateType) {
-      document.getElementById
-
-('downloadCertBtn')?.addEventListener
-
-('click', () => {
-        downloadCertificate
-
-(finalScore, totalQuestionsCount, 
-
-certificateType, percent);
+      document.getElementById('downloadCertBtn')?.addEventListener('click', () => {
+        downloadCertificate(finalScore, totalQuestionsCount, certificateType, percent);
       });
     }
-    
-    document.getElementById
-
-('restartBtn')?.addEventListener
-
-('click', () => {
+    document.getElementById('restartBtn')?.addEventListener('click', () => {
       currentView = 'welcome';
       selectedQty = 25;
       render();
     });
-    
-    document.getElementById
-
-('homeBtn')?.addEventListener('click', 
-
-() => {
+    document.getElementById('homeBtn')?.addEventListener('click', () => {
       currentView = 'welcome';
       selectedQty = 25;
       render();
@@ -1012,51 +610,23 @@ certificateType, percent);
 
   function render() {
     if (isLoading) {
-      app.innerHTML = `<div 
-
-class="loading">🔥 Loading FetLex from 
-
-fetlexquestions.tsv... 🔥</div>`;
+      app.innerHTML = `<div class="loading">🔗 FetLex loading... fetching forbidden vocabulary 🔗<br><br>📖 If this takes too long, check that fetlexquestions.tsv exists in the same folder.</div>`;
       return;
     }
-    
     if (loadError) {
-      app.innerHTML = `
-        <div class="error-msg">
-          ❌ Error loading questions: 
-
-${escapeHtml(loadError)}<br><br>
-          Please make sure 
-
-<strong>fetlexquestions.tsv</strong> 
-
-exists in the same folder as this HTML 
-
-file.<br><br>
-          Format: 
-
-question<TAB>correct_answer<TAB>option
-
-_a<TAB>option_b<TAB>option_c<TAB>categ
-
-ory
-        </div>
-      `;
+      app.innerHTML = `<div class="error-msg">❌ Error loading questions: ${loadError}<br><br>Make sure <strong>fetlexquestions.tsv</strong> is in the same directory as this HTML file.<br><br>📁 The TSV file must be tab-separated with 6 columns.</div>`;
       return;
     }
-    
-    if (currentView === 'welcome') 
-
-renderWelcome();
-    else if (currentView === 'quiz') 
-
-renderQuiz();
-    else if (currentView === 'result') 
-
-renderResult();
+    if (fullQuestions.length === 0) {
+      app.innerHTML = `<div class="error-msg">⚠️ No questions found in fetlexquestions.tsv. Please check the file format.</div>`;
+      return;
+    }
+    if (currentView === 'welcome') renderWelcome();
+    else if (currentView === 'quiz') renderQuiz();
+    else if (currentView === 'result') renderResult();
   }
 
-  // Start the app
+  // Start loading
   loadQuestions();
 </script>
 </body>
